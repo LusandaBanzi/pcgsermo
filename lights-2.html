@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Church Thank You Screen</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    position:relative;
+    color:#fff;
+    background:linear-gradient(-45deg,#000000,#0a1628,#0d1b2a,#1b263b,#2a3b55,#b8860b,#1b263b,#000000);
+    background-size:400% 400%;
+    animation:gradientShift 25s ease infinite;
+}
+
+@keyframes gradientShift{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+/* =========================
+   BACKGROUND SCROLLING BAND
+   (seamless, appears instantly)
+========================= */
+.bg-scroll{
+    position:absolute;
+    top:50%;
+    left:0;
+    transform:translateY(-50%);
+    width:100%;
+    overflow:hidden;
+    z-index:1;
+    pointer-events:none;
+}
+
+.bg-scroll-track{
+    display:flex;
+    width:max-content;
+    animation:bgScroll 220s linear infinite;
+}
+
+.bg-scroll-track span{
+    font-size:25vw;
+    font-weight:900;
+    color:transparent;
+    -webkit-text-stroke:2px rgba(218,165,32,0.15);
+    text-stroke:2px rgba(218,165,32,0.15);
+    white-space:nowrap;
+    padding-right:6vw;
+    line-height:1;
+    text-transform:uppercase;
+}
+
+@keyframes bgScroll{
+    from{transform:translateX(0);}
+    to{transform:translateX(-50%);}
+}
+
+/* =========================
+   HEADER
+========================= */
+.header{
+    position:absolute;
+    top:2vh;
+    left:2vw;
+    display:flex;
+    align-items:center;
+    gap:1.2vw;
+    z-index:20;
+    max-width:70vw;
+}
+
+.logo{
+    width:150px;
+    height:115px;
+    object-fit:fill;
+}
+
+.church-name{
+    font-size:3.5vw;
+    font-weight:1000;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    line-height:1.2;
+
+    /* Blue text */
+    color:navy;
+
+    /* Gold outline around each letter */
+    -webkit-text-stroke:2px #FFD700;
+    text-stroke:2px #FFD700;
+
+    /* Optional glow */
+    text-shadow:
+        0 0 10px rgba(255,215,0,0.6),
+        2px 2px 5px rgba(0,0,0,0.5);
+}
+
+/* =========================
+   OUTLINE + MAIN THANK YOU
+========================= */
+.center-wrap{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    z-index:10;
+    text-align:center;
+    width:100%;
+}
+
+.bg-outline{
+    font-size:23vw;
+    font-weight:900;
+    color:transparent;
+    -webkit-text-stroke:2px rgba(70,130,180,0.18);
+    text-transform:uppercase;
+    line-height:1;
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    white-space:nowrap;
+    z-index:1;
+}
+
+.main-text{
+    position:relative;
+    font-size:19vw;
+    font-weight:900;
+    text-transform:uppercase;
+    line-height:1;
+    z-index:10;
+    background:linear-gradient(90deg,#000000,#0a1628,#1e3a5f,#4682b4,#daa520,#ffd700,#daa520,#1e3a5f,#000000);
+    background-size:300% 100%;
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+    animation:pulse 4s ease-in-out infinite, hue 12s linear infinite;
+    filter:drop-shadow(0 0 25px rgba(218,165,32,0.45));
+}
+
+@keyframes pulse{
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.04);}
+}
+
+@keyframes hue{
+    from{background-position:0% 50%;}
+    to{background-position:300% 50%;}
+}
+
+/* =========================
+   MARQUEES (top + bottom)
+========================= */
+.marquee{
+    position:absolute;
+    width:100%;
+    overflow:hidden;
+    z-index:5;
+}
+
+.marquee.top{top:16vh;}
+.marquee.bottom{bottom:12vh;}
+
+.track{
+    display:flex;
+    width:max-content;
+    animation:scroll 90s linear infinite;
+}
+
+.track span{
+    margin-right:8vw;
+    font-size:1.8vw;
+    color:rgba(173,216,230,0.7);
+    text-transform:uppercase;
+    font-weight:700;
+    letter-spacing:3px;
+    white-space:nowrap;
+}
+
+@keyframes scroll{
+    from{transform:translateX(0);}
+    to{transform:translateX(-50%);}
+}
+
+/* =========================
+   FLOATING SHAPES
+========================= */
+.shape{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(6px);
+    opacity:.55;
+    z-index:2;
+    mix-blend-mode:screen;
+}
+
+.s1{
+    width:14vw;height:14vw;
+    background:radial-gradient(circle,#4682b4,transparent 70%);
+    top:18%;left:15%;
+    animation:float1 14s ease-in-out infinite;
+}
+
+.s2{
+    width:20vw;height:20vw;
+    background:radial-gradient(circle,#daa520,transparent 70%);
+    bottom:15%;right:12%;
+    animation:float2 18s ease-in-out infinite;
+}
+
+.s3{
+    width:11vw;height:11vw;
+    background:radial-gradient(circle,#1e3a5f,transparent 70%);
+    top:28%;right:22%;
+    animation:float3 12s ease-in-out infinite;
+}
+
+.s4{
+    width:16vw;height:16vw;
+    background:radial-gradient(circle,#ffd700,transparent 70%);
+    bottom:22%;left:10%;
+    animation:float2 20s ease-in-out infinite reverse;
+}
+
+@keyframes float1{
+    0%,100%{transform:translateY(0) rotate(0deg);}
+    50%{transform:translateY(-4vh) rotate(180deg);}
+}
+@keyframes float2{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(5vh);}
+}
+@keyframes float3{
+    0%,100%{transform:translateX(0);}
+    50%{transform:translateX(-5vw);}
+}
+
+/* =========================
+   FOOTER
+========================= */
+.footer{
+    position:absolute;
+    bottom:3vh;
+    width:100%;
+    text-align:center;
+    font-size:1.8vw;
+    font-weight:600;
+    letter-spacing:2px;
+    color:linear-gradient(-45deg,#000000,#0a1628,#0d1b2a,#1b263b,#2a3b55,#b8860b,#1b263b,#000000);
+    z-index:20;
+    text-shadow:0 0 15px rgba(218,165,32,0.4);
+}
+
+/* glow */
+.glow{
+    position:absolute;
+    width:60vw;
+    height:60vw;
+    max-width:900px;
+    max-height:900px;
+    background:radial-gradient(circle,
+        rgba(30,58,95,.45),
+        rgba(70,130,180,.25),
+        rgba(218,165,32,.15),
+        transparent 70%);
+    left:50%;top:50%;
+    transform:translate(-50%,-50%);
+    z-index:0;
+    animation:glowPulse 8s ease-in-out infinite;
+}
+
+@keyframes glowPulse{
+    0%,100%{opacity:.7; transform:translate(-50%,-50%) scale(1);}
+    50%{opacity:1; transform:translate(-50%,-50%) scale(1.15);}
+}
+</style>
+</head>
+<body>
+
+<div class="glow"></div>
+
+<!-- Seamless background scrolling THANK YOU (visible immediately) -->
+<div class="bg-scroll">
+    <div class="bg-scroll-track">
+        <span>SERMON&nbsp;&nbsp;SERMON&nbsp;&nbsp;SERMON&nbsp;&nbsp;SERMON&nbsp;&nbsp;SERMON&nbsp;&nbsp;SERMON&nbsp;&nbsp;</span>
+        <span>SERMON&nbsp;&nbsp;SERMON&nbsp;&nbsp;SERMON&nbsp;&nbsp;SERMON&nbsp;&nbsp;SERMON&nbsp;&nbsp;SERMON&nbsp;&nbsp;</span>
+    </div>
+</div>
+
+<!-- Header -->
+<div class="header">
+    <img src="pcglogo.png" class="logo" alt="Church Logo" onerror="this.style.display='none'">
+    <div class="church-name">
+        THE PENTECOSTAL CHURCH OF GOD
+    </div>
+</div>
+
+<div class="center-wrap">
+    <div class="bg-outline">SERMON</div>
+    <div class="main-text">SERMON</div>
+</div>
+
+<!-- Floating Shapes -->
+<div class="shape s1"></div>
+<div class="shape s2"></div>
+<div class="shape s3"></div>
+<div class="shape s4"></div>
+
+
+
+<!-- Footer -->
+<div class="footer">
+    We exist to be heavenly bound,edify the church and evangelize the world.
+</div>
+
+<script>
+// Soft blur breathing on floating shapes
+const shapes = document.querySelectorAll('.shape');
+setInterval(()=>{
+    shapes.forEach(shape=>{
+        shape.style.filter = `blur(${4 + Math.random()*6}px)`;
+    });
+}, 2500);
+</script>
+
+</body>
+</html>
